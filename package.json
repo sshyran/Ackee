@@ -1,0 +1,28 @@
+{
+  "name": "Ackee",
+  "version": "2.0.0",
+  "private": true,
+  "authors": [
+    "Tobias Reich <tobias.reich.ich@gmail.com>"
+  ],
+  "description": "",
+  "main": "index.js",
+  "keywords": [
+    "tracking",
+    "analytics"
+  ],
+  "license": "MIT",
+  "homepage": "http://github.com/electerious/Ackee",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/electerious/Ackee.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "etc"
+  ]
+}
