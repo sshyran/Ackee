@@ -1,3 +1,6 @@
 [submodule "core"]
 	path = core
 	url = https://github.com/electerious/ackee-core.git
+[submodule "setup"]
+	path = setup
+	url = https://github.com/electerious/ackee-setup.git
