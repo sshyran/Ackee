@@ -1,0 +1,6 @@
+# Package Managers
+npm-debug.log
+node_modules
+
+# Database
+rethinkdb_data
