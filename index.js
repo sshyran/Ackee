@@ -8,9 +8,9 @@ var core   = require('./core/index.js'),
     setup  = require('./setup/index.js'),
     path   = require('path')
 
-var keyPath    = path.join(__dirname, 'setup/data/key.pem'),
-    certPath   = path.join(__dirname, 'setup/data/cert.pem'),
-    configPath = path.join(__dirname, 'setup/data/config.json')
+var keyPath    = path.join(__dirname, 'data/key.pem'),
+    certPath   = path.join(__dirname, 'data/cert.pem'),
+    configPath = path.join(__dirname, 'data/config.json')
 
 // Configuration missing? => Start the setup
 if (setup.exists(configPath)===false) {
