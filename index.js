@@ -12,10 +12,21 @@ var keyPath    = path.join(__dirname, 'data/key.pem'),
     certPath   = path.join(__dirname, 'data/cert.pem'),
     configPath = path.join(__dirname, 'data/config.json')
 
-// Configuration missing? => Start the setup
-if (setup.exists(configPath)===false) {
-	setup.start(configPath)
-	return true
+var start = function() {
+
+	// Start Ackee
+	core(keyPath, certPath, configPath)
+
 }
 
-core(keyPath, certPath, configPath)
+if (setup.exists(configPath)===false) {
+
+	// Configuration missing => Start the setup
+	setup.start(configPath, start)
+
+} else {
+
+	// Configuration exists => Start Ackee
+	start()
+
+}
