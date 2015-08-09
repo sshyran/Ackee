@@ -17,6 +17,9 @@
     "type": "git",
     "url": "https://github.com/electerious/Ackee.git"
   },
+  "scripts": {
+    "start": "node index.js"
+  },
   "ignore": [
     "**/.*",
     "node_modules",
