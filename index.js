@@ -8,14 +8,16 @@ var core   = require('./core/index.js'),
     setup  = require('./setup/index.js'),
     path   = require('path')
 
-var keyPath    = path.join(__dirname, 'data/key.pem'),
-    certPath   = path.join(__dirname, 'data/cert.pem'),
-    configPath = path.join(__dirname, 'data/config.json')
+var keyPath     = path.join(__dirname, 'data/key.pem'),
+    certPath    = path.join(__dirname, 'data/cert.pem'),
+    configPath  = path.join(__dirname, 'data/config.json'),
+    pluginsPath = path.join(__dirname, 'node_modules/')
 
+// Start Ackee
 var start = function() {
 
 	// Start Ackee
-	core(keyPath, certPath, configPath)
+	core(keyPath, certPath, configPath, pluginsPath)
 
 }
 
