@@ -18,7 +18,8 @@
     "url": "https://github.com/electerious/Ackee.git"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "cd core/ && npm i && gulp && cd ../setup/ && npm i && gulp && cd ../"
   },
   "ignore": [
     "**/.*",
