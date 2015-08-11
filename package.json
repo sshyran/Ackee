@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "build": "cd server/ && npm i && gulp && cd ../setup/ && npm i && gulp && cd ../"
+    "build": "cd server/ && npm run build && cd ../setup/ && npm run build && cd ../"
   },
   "ignore": [
     "**/.*",
