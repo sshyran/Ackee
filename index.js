@@ -4,7 +4,7 @@
  * @copyright 2015 by Tobias Reich
  */
 
-var core   = require('./core/index.js'),
+var server = require('./server/index.js'),
     setup  = require('./setup/index.js'),
     path   = require('path')
 
@@ -17,7 +17,7 @@ var keyPath     = path.join(__dirname, 'data/key.pem'),
 var start = function() {
 
 	// Start Ackee
-	core(keyPath, certPath, configPath, pluginsPath)
+	server(keyPath, certPath, configPath, pluginsPath)
 
 }
 
