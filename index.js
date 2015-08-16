@@ -8,16 +8,19 @@ var server = require('./server/index.js'),
     setup  = require('./setup/index.js'),
     path   = require('path')
 
-var keyPath     = path.join(__dirname, 'data/key.pem'),
-    certPath    = path.join(__dirname, 'data/cert.pem'),
-    configPath  = path.join(__dirname, 'data/config.json'),
-    pluginsPath = path.join(__dirname, 'node_modules/')
+var httpPort  = process.env.HTTP_PORT,
+    httpsPort = process.env.HTTPS_PORT
+
+var keyPath     = process.env.KEY_PATH || path.join(__dirname, 'data/key.pem'),
+    certPath    = process.env.CERT_PATH || path.join(__dirname, 'data/cert.pem'),
+    configPath  = process.env.CONFIG_PATH || path.join(__dirname, 'data/config.json'),
+    pluginsPath = process.env.PLUGINS_PATH || path.join(__dirname, 'node_modules/')
 
 // Start Ackee
 var start = function() {
 
 	// Start Ackee
-	server(keyPath, certPath, configPath, pluginsPath)
+	server(httpPort, httpsPort, keyPath, certPath, configPath, pluginsPath)
 
 }
 
