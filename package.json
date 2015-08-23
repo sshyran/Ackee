@@ -19,7 +19,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "build": "cd server/ && npm run build && cd ../setup/ && npm run build && cd ../"
+    "build": "cd server/ && npm run build && cd ../setup/ && npm run build && cd ../",
+    "watch": "nodemon --watch site/dist/ --watch server/dist/ --watch setup/dist"
   },
   "ignore": [
     "**/.*",
