@@ -20,18 +20,15 @@ var keyPath     = process.env.KEY_PATH || path.join(__dirname, 'data/key.pem'),
 var start = function() {
 
 	// Start Ackee
-	server(httpPort, httpsPort, keyPath, certPath, configPath, pluginsPath)
+	server.start(httpPort, httpsPort, keyPath, certPath, configPath, pluginsPath)
 
 }
 
-if (setup.exists(configPath)===false) {
+setup.exists(configPath, function(exists) {
 
 	// Configuration missing => Start the setup
-	setup.start(configPath, start)
-
-} else {
-
 	// Configuration exists => Start Ackee
-	start()
+	if (exists===false) setup.start(configPath, start)
+	else                start()
 
-}
+})
