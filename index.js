@@ -16,7 +16,6 @@ var keyPath     = process.env.KEY_PATH || path.join(__dirname, 'data/key.pem'),
     configPath  = process.env.CONFIG_PATH || path.join(__dirname, 'data/config.json'),
     pluginsPath = process.env.PLUGINS_PATH || path.join(__dirname, 'node_modules/')
 
-// Start Ackee
 var start = function() {
 
 	// Start Ackee
