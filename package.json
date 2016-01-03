@@ -21,13 +21,5 @@
     "start": "node index.js",
     "build": "cd server/ && npm run build && cd ../setup/ && npm run build && cd ../site/ && npm run build && cd ../",
     "watch": "nodemon --watch server/lib/ --watch setup/lib/"
-  },
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests",
-    "etc"
-  ]
+  }
 }
