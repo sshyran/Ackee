@@ -10,14 +10,14 @@ this.ackee =
 
 		# Bind hotkeys
 		Mousetrap.bindGlobal 'enter', () ->
-			if $('.modalContainer').length isnt 0
-				$('.modalContainer #action').addClass('active').click()
+			if basicModal.visible() is true
+				basicModal.action()
 
 		Mousetrap.bindGlobal 'esc', () ->
-			if $('.modalContainer[data-closable=true]').length isnt 0
-				$('.modalContainer #cancel').addClass('active').click()
-			else if $('.context').length isnt 0
-				context.close()
+			if $('.basicModalContainer[data-closable=true]').length isnt 0
+				basicModal.cancel()
+			else if basicContext.visible() is true
+				basicContext.close()
 
 		ackee.api 'api/session/init', (data) ->
 
@@ -36,7 +36,7 @@ this.ackee =
 
 					# Logged in
 					menu.init '#menu'
-					fit.init '#content', '.leaf'
+					basicFit.init '#content', '.leaf'
 					leafs.init()
 					cache.init()
 					return true
@@ -70,8 +70,8 @@ this.ackee =
 
 		# Show notification
 		loading = setTimeout ->
-			loading = notification.show {
-				icon: 'ios7-clock'
+			loading = basicNotification.show {
+				icon: 'ion-ios7-clock'
 				text: 'Still loading ...'
 				pin: true
 			}
@@ -85,13 +85,13 @@ this.ackee =
 
 				# Hide notification
 				clearTimeout loading if loading
-				notification.close loading if loading >= 100
+				basicNotification.close loading if loading >= 100
 
 				errorThrown = 'Unknown' if errorThrown is ''
 
 				# Show error
-				notification.show {
-					icon: 'alert-circled'
+				basicNotification.show {
+					icon: 'ion-alert-circled'
 					text: "Request failed and server returned: #{ errorThrown }"
 				}
 				console.error {
@@ -107,13 +107,13 @@ this.ackee =
 
 				# Hide notification
 				clearTimeout loading if loading
-				notification.close loading if loading >= 100
+				basicNotification.close loading if loading >= 100
 
 				if data?.error?
 
 					# Show error
-					notification.show {
-						icon: 'alert-circled'
+					basicNotification.show {
+						icon: 'ion-alert-circled'
 						text: data.error
 					}
 					console.error data

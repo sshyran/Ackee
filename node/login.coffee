@@ -1,6 +1,7 @@
 # Dependencies
 jsesc		= require 'jsesc'
 async		= require 'async'
+bcrypt		= require 'bcrypt'
 
 # Ackee modules
 db			= require './db'
@@ -46,7 +47,6 @@ login = module.exports =
 					return false
 
 			parse req, ->
-
 				async.parallel [
 
 					(pCallback) ->
@@ -56,8 +56,25 @@ login = module.exports =
 
 					(pCallback) ->
 
-						# Set password
-						db.settings.set 'password', req.query.password, pCallback
+						bcrypt.genSalt 10, (err, salt) ->
+
+							if err?
+
+								# Error
+								pCallback err
+								return false
+
+							# Hash password
+							bcrypt.hash req.query.password, salt, (err, hash) ->
+
+								if err?
+
+									# Error
+									pCallback err
+									return false
+
+								# Set password
+								db.settings.set 'password', hash, pCallback
 
 				], (error) ->
 
@@ -89,27 +106,43 @@ login = module.exports =
 			else if	rows.username? and
 					rows.password? and
 					req.query? and
-					req.query.username is rows.username and
-					req.query.password is rows.password
+					req.query.password? and
+					req.query.username is rows.username
 
-						# Login vaild
-						req.session.login = false
+						bcrypt.compare req.query.password, rows.password, (err, result) ->
 
-						# Remove login
-						async.parallel [
+							if err?
 
-							(pCallback) ->
+								# Unknown error
+								res.json { error: 'Could not compare password with password in database', details: err }
+								return false
 
-								db.settings.remove 'username', pCallback
+							else if result is true
 
-							(pCallback) ->
+								# Login vaild => Logout
+								req.session.login = false
 
-								db.settings.remove 'password', pCallback
+								# Remove login
+								async.parallel [
 
-						], (error) ->
+									(pCallback) ->
 
-								res.json true
-								return true
+										db.settings.remove 'username', pCallback
+
+									(pCallback) ->
+
+										db.settings.remove 'password', pCallback
+
+								], (error) ->
+
+										res.json true
+										return true
+
+							else
+
+								# Required data missing
+								res.json false
+								return false
 
 			else
 

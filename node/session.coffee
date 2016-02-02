@@ -1,5 +1,6 @@
 # Ackee modules
 db = require './db'
+bcrypt = require 'bcrypt'
 
 cookieName = 'AckeeIgnore'
 
@@ -41,19 +42,34 @@ session = module.exports =
 				not rows?.password?
 
 					# Entries not found
-					res.json { error: 'Could not find username or password in database', details: error }
+					res.json { error: 'Could not find username or password in database', details: null }
 					return false
 
 			else if	rows.username? and
 					rows.password? and
 					req.query? and
-					req.query.username is rows.username and
-					req.query.password is rows.password
+					req.query.password? and
+					req.query.username is rows.username
 
-						# Login vaild
-						req.session.login = true
-						res.json true
-						return true
+						bcrypt.compare req.query.password, rows.password, (err, result) ->
+
+							if err?
+
+								# Unknown error
+								res.json { error: 'Could not compare password with password in database', details: err }
+								return false
+
+							else if result is true
+
+								# Login valid
+								req.session.login = true
+								res.json true
+								return true
+
+							else
+
+								res.json false
+								return false
 
 			else
 
